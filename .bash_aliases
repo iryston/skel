@@ -85,5 +85,5 @@ g() {
 # Without an argument, it creates a new session with the name "${1:-$(whoami)@$(hostname -s)}".
 #
 tms() {
-    tmux -f "${XDG_CONFIG_HOME}/tmux/tmux.conf" -u new-session -A -s "${1:-$(whoami)@$(hostname -s)}"
+    tmux -u new-session -A -s "${1:-$(whoami)@$(hostname -s)}"
 }
