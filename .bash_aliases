@@ -50,7 +50,7 @@ done
 #
 # Check if command can be used
 #
-# usage:command_exists <command> || return 1
+# Usage:command_exists <command> || return 1
 #
 command_exists() {
   command -v "$@" >/dev/null 2>&1
@@ -59,7 +59,7 @@ command_exists() {
 #
 # Recursively create directory and cd in it
 #
-# usage: mkd <directory_path>
+# Usage: mkd <directory_path>
 #
 mkd() {
   [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" || return 1
@@ -68,7 +68,7 @@ mkd() {
 #
 # Alias for git.
 #
-# usage: g <command> [<args>]
+# Usage: g <command> [<args>]
 # With arguments acts like `git`
 # Without arguments acts like `git status`
 #
@@ -78,4 +78,15 @@ g() {
   else
     git status
   fi
+}
+
+#
+# Alias for tmux.
+#
+# Usage: tms [<arg>]
+# With an argument, it creates a new session or attaches to an existing one.
+# Without an argument, it creates a new session with the name "${1:-$(whoami)@$(hostname -s)}".
+#
+tms() {
+    tmux -f "${XDG_CONFIG_HOME}/tmux/tmux.conf" -u new-session -A -s "${1:-$(whoami)@$(hostname -s)}"
 }
