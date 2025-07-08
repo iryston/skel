@@ -9,9 +9,6 @@ alias ncdu="ncdu --color dark"
 ## Pretty print the path
 alias pppath='echo $PATH | tr -s ":" "\n"'
 
-## TMUX create new session or attach if exists
-alias tms='tmux -u new-session -A -s "$(hostname -s)"'
-
 # Check for editors and set aliases
 for edtr in nvim vim nano mcedit vi; do
   if command -v "$edtr" >/dev/null 2>&1; then
