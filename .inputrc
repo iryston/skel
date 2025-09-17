@@ -1,0 +1,79 @@
+# readline/inputrc
+
+# -----------------------------------------------------------------------
+# Table of Contents
+# -----------------------------------------------------------------------
+# 1. General Settings
+# 2. Autocomplete
+# 3. Appearance
+# 4. Keybindings
+# -----------------------------------------------------------------------
+
+$include /etc/inputrc
+
+# (1) General Settings -------------------------------------------------- {{{1
+
+# Allow UTF-8 input and output, instead of showing stuff like $'\0123\0456'
+set input-meta on
+set output-meta on
+set convert-meta off
+
+# (2) Autocomplete ------------------------------------------------------ {{{1
+
+# Make Tab autocomplete regardless of filename case
+set completion-ignore-case on
+# List all matches in case multiple possible completions are possible
+set show-all-if-ambiguous on
+# Do not autocomplete hidden files unless the pattern explicitly begins with a dot
+set match-hidden-files off
+# Show all autocomplete results at once
+set page-completions off
+# If there are more than 200 possible completions for a word, ask to show them all
+set completion-query-items 200
+# Alter the default completion behavior when inserting a single match into the line
+set skip-completed-text on
+
+# (3) Appearance -------------------------------------------------------- {{{1
+
+# Show extra file information when completing, like `ls -F` does
+set visible-stats on
+# Display possible completions using different colors to indicate their file type
+set colored-stats on
+# Immediately add a trailing slash when autocompleting symlinks to directories
+set mark-symlinked-directories on
+
+# (4) Keybindings ------------------------------------------------------- {{{1
+
+# \e[3;3~ <=> [alt] + [backspace]
+# \e[f    <=> [alt] + [arrow right]
+# \e[b    <=> [alt] + [arrow left]
+# \e[A    <=> [arrow up]
+# \e[B    <=> [arrow down]
+# \e[Z    <=> [shift] + [tab]
+
+#"\t": menu-complete
+#"\e[Z": menu-complete-backward
+"\e[3;3~": kill-word
+"\e[b": backward-word
+"\e[f": forward-word
+# Use the text that has already been typed as the prefix for searching through
+# commands (i.e. more intelligent Up/Down behavior)
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+"\C-xl": shell-expand-line
+"\C-x1": "\e1\e."
+"\C-x2": "\e2\e."
+"\C-x3": "\e3\e."
+"\C-x4": "\e4\e."
+"\C-x5": "\e5\e."
+"\C-x6": "\e6\e."
+"\C-x7": "\e7\e."
+"\C-x8": "\e8\e."
+"\C-x9": "\e9\e."
+"\C-x0": "\e0\e."
+
+"\C-x\C-l": shell-expand-line
+"\C-x\C-g": glob-expand-word
+
+# vim:syntax=readline:foldmethod=marker:foldlevel=2
