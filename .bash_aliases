@@ -4,6 +4,11 @@ alias ll='ls -AlhF' # Long list, human readable sizes
 alias tree='tree -CF'
 alias t='tree -a --noreport --dirsfirst -I ".git|node_modules"'
 
+# Avoid making mistakes:
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
 # ncdu dark theme
 alias ncdu="ncdu --color dark"
 
