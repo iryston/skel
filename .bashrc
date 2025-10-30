@@ -25,7 +25,7 @@ shopt -s nocaseglob   # Case-insensitive globbing
 HISTCONTROL=ignoreboth # Ignore duplicates and space-prefixed lines
 HISTSIZE=8000
 HISTFILESIZE=10000
-export HISTIGNORE="&:bg:bg *:fg:fg *:ll:ll *:ls:ls *:cd:cd *:git add:git add *:git reset:git reset *:mc:mc *:mkdir:mkdir *:pwd:exit:date:* --help:vault*:e:e *:g:g *:mkd:mkd *"
+export HISTIGNORE="&:bg:bg *:fg:fg *:ll:ll *:ls:ls *:mc:mc *:pwd:exit:date:* --help:vault*:e:e *:g:g *:mkd:mkd *"
 PROMPT_COMMAND="history -a${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
 export PROMPT_COMMAND
 
