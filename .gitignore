@@ -1,0 +1,163 @@
+# git/ignore
+#
+# @see <https://gitignore.io>
+#
+# -----------------------------------------------------------------------
+# Table of Contents
+# -----------------------------------------------------------------------
+# 1. Linux
+# 2. macOS
+# 3. Windows
+# 4. Version control
+# 5. Editors
+# 6. Tags
+# 7. Cache, log & other stuff
+# -----------------------------------------------------------------------
+
+
+# (1) Linux ------------------------------------------------------------- {{{1
+
+*~
+
+# temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*
+
+
+# (2) macOS ------------------------------------------------------------- {{{1
+
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+
+# (3) Windows ----------------------------------------------------------- {{{1
+
+# Windows thumbnail cache files
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+
+# Dump file
+*.stackdump
+
+# Folder config file
+[Dd]esktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+
+# (4) Version control --------------------------------------------------- {{{1
+
+.git/
+.hg/
+.svn/
+*.diff
+*.patch
+
+
+# (5) Editors ----------------------------------------------------------- {{{1
+
+# IntelliJ Idea IDE
+.idea
+
+# VisualStudioCode
+.vscode
+
+
+# (3) Tags -------------------------------------------------------------- {{{1
+
+TAGS
+.TAGS
+!TAGS/
+tags
+.tags
+!tags/
+gtags.files
+GTAGS
+GRTAGS
+GPATH
+GSYMS
+cscope.files
+cscope.out
+cscope.in.out
+cscope.po.out
+
+
+# (6) Cache, log & other stuff ------------------------------------------ {{{1
+
+*.err
+*.log
+*.orig
+*.swp
+
+# Ansible
+*.retry
+
+# Application specific files
+venv
+node_modules
+.nvm
+.nvs
+.sass-cache
+.cpan
+.cpanm
+.cache
+.Cache
+.vim/bundle/*
+nvim/bundle/*
+
+# Compiled Python files
+*.pyc
+
+# Compiled C++ files
+*.out
+
+# Vagrant
+.vagrant
+vagrant_ansible_inventory_default
+
+.dotgit
+

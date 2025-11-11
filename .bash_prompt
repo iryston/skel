@@ -1,0 +1,46 @@
+# shellcheck disable=SC2148
+# $HOME/.bash_prompt
+#
+# @file Configuration for Bash prompt
+
+# Set chroot identifier if available
+[[ -z "${debian_chroot:-}" && -r /etc/debian_chroot ]] &&
+  debian_chroot=$(</etc/debian_chroot)
+
+# Prompt configuration
+enable_color_prompt=yes
+if [[ -n "$enable_color_prompt" ]]; then
+  if command -v tput &>/dev/null && tput setaf 1 &>/dev/null; then
+    color_prompt=yes
+  else
+    color_prompt=
+  fi
+fi
+
+if [[ "$color_prompt" == yes ]]; then
+  if ((EUID == 0)); then
+    # Root user
+    if [ "$PROMPT_TOGGLE" = true ]; then
+      PS1='${debian_chroot:+($debian_chroot)}\[\e[38;5;75m\]\w\n\[\e[90m\]\t\[\e[0m\] \[\e[38;5;73m\][\[\e[37m\]\j\[\e[38;5;73m\]]\[\e[0m\] $(if [ $? -eq 0 ]; then echo "\[\e[32;1m\]"; else echo "\[\e[91;1m\]"; fi)\$\[\e[0m\] '
+    else
+      PS1='${debian_chroot:+($debian_chroot)}\[\e[91m\]\u\[\e[90m\]@\[\e[38;5;173m\]\h\[\e[0m\]:\[\e[38;5;75m\]\w\n\[\e[90m\]\t\[\e[0m\] \[\e[38;5;73m\][\[\e[37m\]\j\[\e[38;5;73m\]]\[\e[0m\] $(if [ $? -eq 0 ]; then echo "\[\e[32;1m\]"; else echo "\[\e[91;1m\]"; fi)\$\[\e[0m\] '
+    fi
+  else
+    # Non-root user
+    if [ "$PROMPT_TOGGLE" = true ]; then
+      PS1='${debian_chroot:+($debian_chroot)}\[\e[38;5;75m\]\w\n\[\e[90m\]\t\[\e[0m\] \[\e[38;5;73m\][\[\e[37m\]\j\[\e[38;5;73m\]]\[\e[0m\] $(if [ $? -eq 0 ]; then echo "\[\e[32;1m\]"; else echo "\[\e[91;1m\]"; fi)\$\[\e[0m\] '
+    else
+      PS1='${debian_chroot:+($debian_chroot)}\[\e[32m\]\u\[\e[90m\]@\[\e[38;5;173m\]\h\[\e[0m\]:\[\e[38;5;75m\]\w\n\[\e[90m\]\t\[\e[0m\] \[\e[38;5;73m\][\[\e[37m\]\j\[\e[38;5;73m\]]\[\e[0m\] $(if [ $? -eq 0 ]; then echo "\[\e[32;1m\]"; else echo "\[\e[91;1m\]"; fi)\$\[\e[0m\] '
+    fi
+  fi
+else
+  if [ "$PROMPT_TOGGLE" = true ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\w\$ '
+  else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+  fi
+fi
+unset color_prompt enable_color_prompt
+
+
+# vim:filetype=sh:foldmethod=marker:foldlevel=2

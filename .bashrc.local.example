@@ -1,0 +1,49 @@
+# shellcheck disable=SC2148
+# $HOME/.bashrc.local
+#
+# @file Configuration file sourced on interactive shells
+
+# History configuration
+HISTCONTROL=ignoreboth # Ignore duplicates and space-prefixed lines
+# Ignore some cli commands
+export HISTIGNORE="&:bg:bg *:fg:fg *:ll:ll *:pwd:exit:date:* --help:vault*:e:e *:ee:ee *:g:g *:mkd:mkd *:t:t *:tms"
+
+# Set mc skin
+if ((EUID == 0)); then
+  export MC_SKIN="/usr/share/mc/skins/modarcon16root-thin.ini"
+else
+  export MC_SKIN="/usr/share/mc/skins/yadt256-defbg.ini"
+fi
+
+# Check for editors and set aliases
+for edtr in nvim vim nano mcedit vi; do
+  if command -v "$edtr" >/dev/null 2>&1; then
+    case "$edtr" in
+    nvim)
+      alias ee='nvim -u NONE -U NONE -i NONE -N -n' # No config, no swap, no plugins
+      alias vimdiff='nvim -dR'                      # Diff mode (read-only)
+      export EDITOR='nvim'
+      ;;
+    vim)
+      alias ee='vim -u NONE -U NONE -i NONE -N -n' # No config, no swap, no plugins
+      export EDITOR='vim'
+      ;;
+    nano)
+      alias ee='nano -I -R' # No rc files, restricted mode
+      export EDITOR='nano'
+      ;;
+    mcedit)
+      alias ee='mcedit -b' # B/W mode, no syntax highlighting
+      export EDITOR='mcedit'
+      ;;
+    vi)
+      alias ee='vi' # No clean mode available
+      export EDITOR='vi'
+      ;;
+    esac
+    # Export editor for other programs to use
+    export VISUAL="$EDITOR"
+    alias e='${EDITOR}' # Open file in default editor
+    break
+  fi
+done
