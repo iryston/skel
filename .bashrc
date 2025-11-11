@@ -26,6 +26,8 @@ if [ -d "$HOME/.local/bin" ] ; then
   PATH="$HOME/.local/bin:$PATH"
 fi
 
+export TERM="xterm"
+
 # Sensible Defaults
 stty -ixon            # Disable start/stop output control
 set -o notify         # Notify about terminating background jobs
