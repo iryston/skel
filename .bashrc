@@ -52,10 +52,6 @@ export PROMPT_COMMAND
   shopt -s globstar  # Enable ** for recursive matching
 }
 
-# Source .bash_prompt if available
-# shellcheck source=/dev/null
-[[ -f "${HOME}/.bash_prompt" ]] && . "${HOME}/.bash_prompt"
-
 # Color support for ls/grep
 if command -v dircolors &>/dev/null; then
   if [[ -r "${HOME}/.dircolors" ]]; then
@@ -82,10 +78,6 @@ export VISUAL="$EDITOR"
 
 # Ripgrep config
 export RIPGREP_CONFIG_PATH="${XDG_CONFIG_HOME:-$HOME/.config}/ripgrep/ripgreprc"
-
-# Source aliases if available
-# shellcheck source=/dev/null
-[[ -f "${HOME}/.bash_aliases" ]] && . "${HOME}/.bash_aliases"
 
 # Load completions
 if ! shopt -oq posix; then
