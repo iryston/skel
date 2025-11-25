@@ -15,7 +15,7 @@ vim.g.editorconfig = true
 -- Encoding
 vim.opt.encoding = "utf-8"
 if vim.o.encoding ~= "utf-8" then
-  vim.opt.termencoding = vim.o.encoding
+	vim.opt.termencoding = vim.o.encoding
 end
 
 -- Autoset order for file character encodings
@@ -71,14 +71,14 @@ vim.opt.list = false
 
 -- Set invisible symbols
 vim.opt.listchars = {
-  eol = "¶",
-  extends = "»",
-  lead = "·",
-  nbsp = "␣",
-  precedes = "«",
-  space = "·",
-  tab = "⇥ ",
-  trail = "•",
+	eol = "¶",
+	extends = "»",
+	lead = "·",
+	nbsp = "␣",
+	precedes = "«",
+	space = "·",
+	tab = "⇥ ",
+	trail = "•",
 }
 
 -- Enable break indent
@@ -113,13 +113,30 @@ vim.cmd.colorscheme("habamax")
 --  See `:help hlsearch`
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
+-- Diagnostic keymaps
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+
+-- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
+-- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
+-- is not what someone will guess without a bit more experience.
+--
+-- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
+-- or just use <C-\><C-n> to exit terminal mode
+vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
 --  See `:help wincmd` for a list of all window commands
-vim.keymap.set("n", "<C-h>", "<C-w><C-h>")
-vim.keymap.set("n", "<C-l>", "<C-w><C-l>")
-vim.keymap.set("n", "<C-j>", "<C-w><C-j>")
-vim.keymap.set("n", "<C-k>", "<C-w><C-k>")
+vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
+vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
+vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
+vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+
+-- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
+-- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
+-- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
+-- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
+-- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 
 -- Remap for dealing with word wrap
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -129,39 +146,39 @@ vim.keymap.set("n", "<Down>", "v:count == 0 ? 'gj' : '<Down>'", { expr = true, s
 
 -- Allow seamless navigation through line endings
 vim.keymap.set("n", "<Right>", function()
-  local line_len = vim.fn.col("$") - 1 -- length of the current line (0-based)
-  local current_col = vim.fn.col(".") -- current cursor column (1-based)
-  if current_col >= line_len then
-    return "<CR>0"
-  else
-    return "l"
-  end
+	local line_len = vim.fn.col("$") - 1 -- length of the current line (0-based)
+	local current_col = vim.fn.col(".") -- current cursor column (1-based)
+	if current_col >= line_len then
+		return "<CR>0"
+	else
+		return "l"
+	end
 end, { expr = true, noremap = true, desc = "Smart right navigation" })
 
 vim.keymap.set("i", "<Right>", function()
-  local line_len = vim.fn.col("$") -- Length of current line
-  local current_col = vim.fn.col(".") -- Current cursor column
-  if current_col >= line_len then -- If at end of line
-    return "<Esc>j0i"
-  else
-    return "<Right>" -- Default right arrow behavior
-  end
+	local line_len = vim.fn.col("$") -- Length of current line
+	local current_col = vim.fn.col(".") -- Current cursor column
+	if current_col >= line_len then -- If at end of line
+		return "<Esc>j0i"
+	else
+		return "<Right>" -- Default right arrow behavior
+	end
 end, { expr = true, noremap = true, desc = "Smart right navigation (insert mode)" })
 
 vim.keymap.set("n", "<Left>", function()
-  if vim.fn.col(".") == 1 then -- If at column 1
-    return "k$" -- Move up and go to last column
-  else
-    return "h" -- Otherwise, move left normally
-  end
+	if vim.fn.col(".") == 1 then -- If at column 1
+		return "k$" -- Move up and go to last column
+	else
+		return "h" -- Otherwise, move left normally
+	end
 end, { expr = true, noremap = true, desc = "Smart left navigation" })
 
 vim.keymap.set("i", "<Left>", function()
-  if vim.fn.col(".") == 1 then -- If at column 1
-    return "<Esc>k$i" -- Exit insert, go up, go to last column, re-enter insert
-  else
-    return "<Left>" -- Default left arrow behavior
-  end
+	if vim.fn.col(".") == 1 then -- If at column 1
+		return "<Esc>k$i" -- Exit insert, go up, go to last column, re-enter insert
+	else
+		return "<Left>" -- Default left arrow behavior
+	end
 end, { expr = true, noremap = true, desc = "Smart left navigation (insert mode)" })
 
 -- [[ Basic Autocommands ]]
@@ -171,11 +188,11 @@ end, { expr = true, noremap = true, desc = "Smart left navigation (insert mode)"
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd("TextYankPost", {
-  desc = "Highlight when yanking (copying) text",
-  group = vim.api.nvim_create_augroup("ironvim-highlight-yank", { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
+	desc = "Highlight when yanking (copying) text",
+	group = vim.api.nvim_create_augroup("ironvim-highlight-yank", { clear = true }),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
 })
 
 -- vim: ts=2 sts=2 sw=2 et
