@@ -63,7 +63,7 @@ alias t='tree -a --noreport --dirsfirst -I ".git|node_modules"'
 # alias mv='mv -i'
 
 # ncdu dark theme
-alias ncdu="ncdu --color dark"
+alias ncdu="ncdu --color dark --exclude=/proc --exclude=/dev -x"
 
 # Pretty print the path
 alias pppath='echo $PATH | tr -s ":" "\n"'
