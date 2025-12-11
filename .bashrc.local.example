@@ -20,9 +20,13 @@ else
 fi
 
 # Check for editors and set aliases
-for edtr in nvim vim nano mcedit vi; do
+for edtr in nano nvim vim mcedit vi; do
   if command -v "$edtr" >/dev/null 2>&1; then
     case "$edtr" in
+    nano)
+      alias ee='nano -I -R' # No rc files, restricted mode
+      export EDITOR='nano'
+      ;;
     nvim)
       alias ee='nvim -u NONE -U NONE -i NONE -N -n' # No config, no swap, no plugins
       alias vimdiff='nvim -dR'                      # Diff mode (read-only)
@@ -31,10 +35,6 @@ for edtr in nvim vim nano mcedit vi; do
     vim)
       alias ee='vim -u NONE -U NONE -i NONE -N -n' # No config, no swap, no plugins
       export EDITOR='vim'
-      ;;
-    nano)
-      alias ee='nano -I -R' # No rc files, restricted mode
-      export EDITOR='nano'
       ;;
     mcedit)
       alias ee='mcedit -b' # B/W mode, no syntax highlighting
