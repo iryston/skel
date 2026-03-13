@@ -10,7 +10,7 @@ export HISTIGNORE="&:bg:bg *:fg:fg *:ll:ll *:pwd:exit:date:* --help:vault*:e:e *
 
 # Source .bash_prompt if available
 # shellcheck source=/dev/null
-# [[ -f "${HOME}/.bash_prompt" ]] && . "${HOME}/.bash_prompt"
+[[ -f "${HOME}/.bash_prompt" ]] && . "${HOME}/.bash_prompt"
 
 # Set mc skin
 if ((EUID == 0)); then
