@@ -19,38 +19,48 @@ else
   export MC_SKIN="/usr/share/mc/skins/yadt256-defbg.ini"
 fi
 
+FAVORITE_EDITOR="nano"
 # Check for editors and set aliases
-for edtr in nano nvim vim mcedit vi; do
-  if command -v "$edtr" >/dev/null 2>&1; then
-    case "$edtr" in
-    nano)
-      alias ee='nano -I -R' # No rc files, restricted mode
-      export EDITOR='nano'
-      ;;
-    nvim)
-      alias ee='nvim -u NONE -U NONE -i NONE -N -n' # No config, no swap, no plugins
-      alias vimdiff='nvim -dR'                      # Diff mode (read-only)
-      export EDITOR='nvim'
-      ;;
-    vim)
-      alias ee='vim -u NONE -U NONE -i NONE -N -n' # No config, no swap, no plugins
-      export EDITOR='vim'
-      ;;
-    mcedit)
-      alias ee='mcedit -b' # B/W mode, no syntax highlighting
-      export EDITOR='mcedit'
-      ;;
-    vi)
-      alias ee='vi' # No clean mode available
-      export EDITOR='vi'
-      ;;
-    esac
-    # Export editor for other programs to use
-    export VISUAL="$EDITOR"
-    alias e='${EDITOR}' # Open file in default editor
-    break
-  fi
-done
+_EE_ARGS=""
+case "$FAVORITE_EDITOR" in
+  nano)
+    _EE_ARGS='-I -R'
+    ;;
+  nvim)
+    _EE_ARGS='-u NONE -U NONE -i NONE -N -n'
+    alias vimdiff='nvim -dR'
+    ;;
+  vim)
+    _EE_ARGS='-u NONE -U NONE -i NONE -N -n'
+    ;;
+  mcedit)
+    _EE_ARGS='-b'
+    ;;
+  vi|vim)
+    _EE_ARGS='' 
+    ;;
+esac
+if command -v "$FAVORITE_EDITOR" >/dev/null 2>&1; then
+    export EDITOR="$FAVORITE_EDITOR"
+    export VISUAL="$FAVORITE_EDITOR"
+    alias e="$EDITOR"
+    if [ -n "$_EE_ARGS" ]; then
+        alias ee="$EDITOR $_EE_ARGS"
+    else
+        alias ee="$EDITOR"
+    fi
+else
+    for fallback in nano nvim vim mcedit vi; do
+        if command -v "$fallback" >/dev/null 2>&1; then
+            export EDITOR="$fallback"
+            export VISUAL="$fallback"
+            alias e="$EDITOR"
+            alias ee="$EDITOR"
+            break
+        fi
+    done
+fi
+unset _EE_ARGS
 
 # List directory contents
 alias ll='ls -AlhF' # Long list, human readable sizes
