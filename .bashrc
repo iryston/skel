@@ -82,8 +82,8 @@ export RIPGREP_CONFIG_PATH="${XDG_CONFIG_HOME:-$HOME/.config}/ripgrep/ripgreprc"
 # Load completions
 if ! shopt -oq posix; then
   # shellcheck source=/dev/null
-  [[ -f "/usr/share/bash-completion/bash_completion" ]] && . "/usr/share/bash-completion/bash_completion" ||
-  [[ -f "/etc/bash_completion" ]] && . "/etc/bash_completion"
+  { [[ -f "/usr/share/bash-completion/bash_completion" ]] && . "/usr/share/bash-completion/bash_completion"; } ||
+  { [[ -f "/etc/bash_completion" ]] && . "/etc/bash_completion"; }
 fi
 
 # Source .bashrc.local if available
