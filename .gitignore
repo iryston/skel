@@ -135,9 +135,13 @@ cscope.po.out
 
 # Ansible
 *.retry
+.ansible
+.molecule
+ansible_collections/*
+roles/contrib/*
+library/*
 
 # Application specific files
-venv
 node_modules
 .nvm
 .nvs
@@ -149,8 +153,12 @@ node_modules
 .vim/bundle/*
 nvim/bundle/*
 
-# Compiled Python files
-*.pyc
+# Python files
+__pycache__/
+*.py[oc]
+.venv
+venv
+.tox
 
 # Compiled C++ files
 *.out
@@ -161,3 +169,4 @@ vagrant_ansible_inventory_default
 
 .dotgit
 
+TEMP
